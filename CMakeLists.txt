@@ -26,7 +26,8 @@ set_target_properties(TestTask
                       PROPERTIES
                       CXX_STANDARD 14
                       CXX_STANDARD_REQUIRED ON
-                     )
+                      LINK_FLAGS -Wl,--stack,10000000
+			)
 
 target_include_directories(TestTask
                            PRIVATE

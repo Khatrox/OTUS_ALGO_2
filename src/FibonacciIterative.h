@@ -1,32 +1,18 @@
 
 #pragma once
-#include "Task.h"
-#include<gmpxx.h>
+#include "FiboBase.h"
 
-struct FibonacciIterative: ITask
+struct FibonacciIterative: FiboBase
 {
-    std::string Run(const std::vector<std::string>& In) override
-	{
-	   auto PassN = std::stoi(In[0]);
-    	    mpz_class value = 0;
-    	    
-    	    if(PassN)
-    	    {
-	    	value = FibonacciImpl(std::stoi(In[0]));
-	    }
-	    	    	
-	    return value.get_str();
-	}
-	    
-	    
+	
 	std::unique_ptr<ITask> Clone() override
- 	{
-	    return std::make_unique<FibonacciIterative>();
+	{
+		return std::make_unique<FibonacciIterative>();
 	}
 
 private:
 
-    mpz_class FibonacciImpl(mpz_class N)
+    mpz_class FibonacciImpl(std::size_t N) override
     {
     	if(!N)
     	{

@@ -1,23 +1,9 @@
 
 #pragma once
-#include<gmpxx.h>
-#include "Task.h"
+#include "FiboBase.h"
 
-struct FibonacciRecursive: ITask
-{
-   std::string Run(const std::vector<std::string>& In) override
-    {
-    	auto PassN = std::stoi(In[0]);
-    	mpz_class value = 0;
-    	if(PassN)
-    	{	
-    		value = FibonacciImpl(PassN);
-    	}
-    	
-    	return value.get_str();
-    }
-    
-    
+struct FibonacciRecursive: FiboBase
+{   
     std::unique_ptr<ITask> Clone() override
     {
     
@@ -25,7 +11,8 @@ struct FibonacciRecursive: ITask
     }
     
 private:
-    mpz_class FibonacciImpl(mpz_class N)
+
+    mpz_class FibonacciImpl(std::size_t N) override
     {
 	if(N <= 2)
 	{

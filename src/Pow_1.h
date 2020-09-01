@@ -3,40 +3,26 @@
 //
 
 #pragma once
-#include "Task.h"
-#include <gmpxx.h>
-#include <sstream>
+#include "PowBase.h"
 
-struct Pow_1: ITask
-{
-    std::string Run(const std::vector<std::string>& In) override
-    {
-    	auto value = Pow_Impl(std::stoi(In[0]),std::stoi(In[1]));
-    	std::stringstream ss;
-    	ss << value;
-    	return ss.str();
-    }
-    
-    
+struct Pow_1: PowBase
+{   
     std::unique_ptr<ITask> Clone() override
     {
-    
     	return std::make_unique<Pow_1>();
     }
     
     private:
     
-    mpf_class Pow_Impl(mpf_class x, uint64_t y)
+    mpf_class Pow_Impl(mpf_class x, uint64_t y) override
     {
 	
        mpf_class r = 1;
 
-       while(y)
+       while(y--)
        {
          r *=  x;
-         
-         --y;
-	}
+       }
 
        return r;
     }
